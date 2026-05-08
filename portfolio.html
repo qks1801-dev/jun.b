@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반준오 - UI/UX Designer Portfolio</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        /* ==========================================================================
+           VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --color-bg: #f9bd17; /* Mustard Yellow */
+            --color-text: #0c0c06; /* Dark Charcoal */
+            --font-primary: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-primary);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ==========================================================================
+           HEADER (BEM: header)
+           ========================================================================== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .header__logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .header__nav-list {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .header__nav-link {
+            font-size: 1.1rem;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .header__nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--color-text);
+            transform: translateX(-101%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .header__nav-link:hover::after {
+            transform: translateX(0);
+        }
+
+        /* ==========================================================================
+           HERO SECTION (BEM: hero)
+           ========================================================================== */
+        .hero {
+            height: 90vh;
+            display: flex;
+            align-items: flex-end;
+            padding: 5%;
+            position: relative;
+        }
+
+        .hero__title {
+            font-size: clamp(4rem, 10vw, 11rem);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            max-width: 90%;
+            z-index: 2;
+        }
+
+        .hero__graphic {
+            position: absolute;
+            top: 15%;
+            right: 10%;
+            width: 30vw;
+            height: 30vw;
+            max-width: 400px;
+            max-height: 400px;
+            border: 2px solid var(--color-text);
+            border-radius: 50%;
+            z-index: 1;
+            animation: rotateGraphic 25s linear infinite;
+        }
+        
+        .hero__graphic::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -20%;
+            width: 140%;
+            height: 2px;
+            background-color: var(--color-text);
+        }
+
+        @keyframes rotateGraphic {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ==========================================================================
+           WORKS SECTION (BEM: works & work-card)
+           ========================================================================== */
+        .works {
+            padding: 15rem 5% 10rem;
+        }
+
+        .works__list {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+            align-items: start;
+        }
+
+        /* Block: work-card */
+        .work-card {
+            display: block;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .work-card__image-wrapper {
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            background-color: var(--color-text);
+        }
+
+        .work-card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: filter 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            display: block;
+        }
+
+        .work-card:hover .work-card__image {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        .work-card__info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .work-card__title {
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            font-weight: 800;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+
+
+        /* Modifier: Vertical Layout (Project 1) */
+        .work-card--vertical {
+            grid-column: 1 / 7;
+            margin-top: 0;
+        }
+        .work-card--vertical .work-card__image-wrapper {
+            aspect-ratio: 3 / 4;
+        }
+        .work-card--vertical .work-card__info {
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        /* Modifier: Horizontal Layout (Project 2) */
+        .work-card--horizontal {
+            grid-column: 6 / 13;
+            margin-top: 15vw;
+        }
+        .work-card--horizontal .work-card__image-wrapper {
+            aspect-ratio: 16 / 9;
+        }
+        .work-card--horizontal .work-card__info {
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        /* Modifier: Square Layout (Project 3) */
+        .work-card--square {
+            grid-column: 2 / 8;
+            margin-top: 8vw;
+        }
+        .work-card--square .work-card__image-wrapper {
+            aspect-ratio: 1 / 1;
+            width: 70%; /* Making it a bit smaller visually */
+        }
+        .work-card--square .work-card__info {
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        /* ==========================================================================
+           FOOTER (BEM: footer)
+           ========================================================================== */
+        .footer {
+            padding: 10rem 5% 2rem;
+            display: flex;
+            flex-direction: column;
+            min-height: 60vh;
+            justify-content: flex-end;
+        }
+
+        .footer__title {
+            font-size: clamp(5rem, 16vw, 20rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+            text-align: center;
+            margin: auto 0;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .footer__title:hover {
+            -webkit-text-stroke: 3px var(--color-text);
+            color: transparent;
+        }
+
+        .footer__bottom {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 5rem;
+            border-top: 2px solid var(--color-text);
+            padding-top: 1.5rem;
+        }
+
+        .footer__copyright {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           RESPONSIVE DESIGN
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .works__list {
+                display: flex;
+                flex-direction: column;
+                gap: 5rem;
+            }
+            .work-card--vertical,
+            .work-card--horizontal,
+            .work-card--square {
+                margin-top: 0;
+            }
+            .work-card--square .work-card__image-wrapper {
+                width: 100%;
+            }
+            .header {
+                padding: 1.5rem 5%;
+            }
+            .header__nav-list {
+                gap: 1.5rem;
+            }
+            .hero__graphic {
+                width: 50vw;
+                height: 50vw;
+                top: 10%;
+            }
+            .footer__title {
+                -webkit-text-stroke: 1px var(--color-text);
+            }
+        }
+        /* ==========================================================================
+           MODAL (Lightbox)
+           ========================================================================== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(12, 12, 6, 0.95);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal:target {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: default;
+        }
+
+        .modal__close {
+            position: absolute;
+            top: 2rem;
+            right: 3rem;
+            color: var(--color-bg);
+            font-size: 3rem;
+            font-weight: 100;
+            text-decoration: none;
+            line-height: 1;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .modal__close:hover {
+            transform: scale(1.2);
+        }
+
+        .modal__image {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            z-index: 1;
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal:target .modal__image {
+            transform: scale(1);
+        }
+        /* ==========================================================================
+           CONTACT MODAL
+           ========================================================================== */
+        .contact-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(12, 12, 6, 0.98);
+            z-index: 2000;
+            display: flex;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .contact-modal:target {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .contact-modal__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: default;
+            z-index: 0;
+        }
+
+        .contact-modal__content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            z-index: 1;
+            background-color: var(--color-text); /* Dark Charcoal */
+            color: var(--color-bg); /* Mustard Yellow */
+        }
+
+        .contact-modal__close {
+            position: absolute;
+            top: 2rem;
+            right: 3rem;
+            color: var(--color-bg);
+            font-size: 4rem;
+            font-weight: 100;
+            text-decoration: none;
+            line-height: 1;
+            z-index: 10;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-modal__close:hover {
+            transform: scale(1.1);
+        }
+
+        .contact-modal__left {
+            flex: 4; /* 40% */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5% 5% 5% 10%;
+            border-right: 1px solid rgba(249, 189, 23, 0.2);
+        }
+
+        .contact-modal__right {
+            flex: 6; /* 60% */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5% 10% 5% 5%;
+        }
+
+        .contact-modal__title {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+            color: var(--color-bg);
+        }
+
+        .contact-modal__desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(249, 189, 23, 0.7);
+            margin-bottom: 4rem;
+        }
+
+        .contact-modal__info-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 2rem;
+        }
+
+        .contact-modal__label {
+            font-size: 0.9rem;
+            color: rgba(249, 189, 23, 0.5);
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .contact-modal__link {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--color-bg);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .contact-modal__link:hover {
+            opacity: 0.7;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .contact-form__group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form__label {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--color-bg);
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-form__input,
+        .contact-form__textarea {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(249, 189, 23, 0.3);
+            border-radius: 8px;
+            color: var(--color-bg);
+            font-family: inherit;
+            font-size: 1rem;
+            padding: 1rem 1.2rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form__textarea {
+            resize: vertical;
+            min-height: 160px;
+        }
+
+        .contact-form__input::placeholder,
+        .contact-form__textarea::placeholder {
+            color: rgba(249, 189, 23, 0.3);
+            font-weight: 400;
+        }
+
+        .contact-form__input:focus,
+        .contact-form__textarea:focus {
+            border-color: var(--color-bg);
+            background-color: rgba(249, 189, 23, 0.05);
+            box-shadow: 0 0 0 3px rgba(249, 189, 23, 0.1);
+        }
+
+        .contact-form__submit {
+            align-self: flex-end; /* Right aligned */
+            background: var(--color-bg);
+            border: none;
+            border-radius: 8px;
+            color: var(--color-text);
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 1.2rem 3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .contact-form__submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(249, 189, 23, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .contact-modal__content {
+                flex-direction: column;
+            }
+            .contact-modal__left {
+                flex: none;
+                border-right: none;
+                border-bottom: 1px solid rgba(249, 189, 23, 0.2);
+                padding: 15% 5% 5%;
+            }
+            .contact-modal__right {
+                flex: none;
+                padding: 5% 5% 15%;
+            }
+            .contact-modal__title {
+                font-size: 1.5rem;
+            }
+            .contact-modal__close {
+                top: 1rem;
+                right: 1.5rem;
+            }
+        }
+        /* ==========================================================================
+           ABOUT MODAL
+           ========================================================================== */
+        .about-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(12, 12, 6, 0.98);
+            z-index: 2000;
+            display: block;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .about-modal:target {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .about-modal__overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: default;
+            z-index: 0;
+        }
+
+        .about-modal__content {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            z-index: 1;
+            background-color: var(--color-bg); /* Mustard Yellow bg */
+            color: var(--color-text); /* Dark Charcoal text */
+            padding: 8% 10%;
+        }
+
+        .about-modal__close {
+            position: absolute;
+            top: 2rem;
+            right: 3rem;
+            color: var(--color-text);
+            font-size: 4rem;
+            font-weight: 100;
+            text-decoration: none;
+            line-height: 1;
+            z-index: 10;
+            transition: transform 0.3s ease;
+        }
+
+        .about-modal__close:hover {
+            transform: scale(1.1);
+        }
+
+        .about-modal__top {
+            display: flex;
+            gap: 5rem;
+            margin-bottom: 8rem;
+            align-items: center;
+        }
+
+        .about-modal__profile-box {
+            flex: 0 0 300px;
+            height: 300px;
+            background-color: var(--color-text);
+            border: 1px solid var(--color-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .about-modal__profile-placeholder {
+            color: var(--color-bg);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        .about-modal__intro {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .about-modal__name {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+
+        .about-modal__role {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            color: rgba(12, 12, 6, 0.7);
+        }
+
+        .about-modal__philosophy {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            max-width: 800px;
+            font-weight: 400;
+        }
+
+        .about-modal__bottom {
+            display: flex;
+            gap: 5rem;
+        }
+
+        .about-modal__section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--color-text);
+            padding-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .about-modal__skills {
+            flex: 1;
+        }
+
+        .about-modal__skill-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .about-modal__skill-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .about-modal__skill-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .about-modal__skill-bar {
+            width: 100%;
+            height: 4px;
+            background-color: rgba(12, 12, 6, 0.1);
+            position: relative;
+        }
+
+        .about-modal__skill-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: var(--color-text);
+        }
+
+        .about-modal__experience {
+            flex: 1.5;
+        }
+
+        .about-modal__timeline {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .about-modal__timeline-item {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 2rem;
+            padding: 2rem 1rem;
+            border-bottom: 1px solid rgba(12, 12, 6, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .about-modal__timeline-item:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .about-modal__timeline-year {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: rgba(12, 12, 6, 0.6);
+        }
+
+        .about-modal__timeline-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .about-modal__timeline-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .about-modal__timeline-desc {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: rgba(12, 12, 6, 0.8);
+        }
+
+        @media (max-width: 768px) {
+            .about-modal__content {
+                padding: 15% 5%;
+            }
+            .about-modal__top, .about-modal__bottom {
+                flex-direction: column;
+                gap: 4rem;
+            }
+            .about-modal__top {
+                margin-bottom: 4rem;
+            }
+            .about-modal__profile-box {
+                flex: none;
+                width: 100%;
+                height: 300px;
+                max-width: 300px;
+            }
+            .about-modal__timeline-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                padding: 1.5rem 0;
+            }
+            .about-modal__close {
+                top: 1rem;
+                right: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Block -->
+    <header class="header">
+        <div class="header__logo">JUN.B</div>
+        <nav class="header__nav">
+            <ul class="header__nav-list">
+                <li class="header__nav-item"><a href="works.html" class="header__nav-link">Work</a></li>
+                <li class="header__nav-item"><a href="#about" class="header__nav-link">About</a></li>
+                <li class="header__nav-item"><a href="#contact" class="header__nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section Block -->
+        <section class="hero">
+            <h1 class="hero__title">
+                Defining Problems,<br>
+                Designing Solutions.
+            </h1>
+            <div class="hero__graphic"></div>
+        </section>
+
+        <!-- Works Section Block -->
+        <section id="works" class="works">
+            <div class="works__list">
+                
+                <!-- Project 1 (Vertical) -->
+                <article class="work-card work-card--vertical">
+                    <div class="work-card__image-wrapper">
+                        <a href="#modal-1">
+                            <img src="assets/app_ux_wireframe.png" alt="배달/쇼핑 앱 UX 개선 리서치 및 와이어프레임" class="work-card__image">
+                        </a>
+                    </div>
+                    <div class="work-card__info">
+                        <h2 class="work-card__title">배달/쇼핑 앱 UX 개선 리서치 및 와이어프레임</h2>
+                    </div>
+                </article>
+
+                <!-- Project 2 (Horizontal) -->
+                <article class="work-card work-card--horizontal">
+                    <div class="work-card__image-wrapper">
+                        <a href="#modal-2">
+                            <img src="assets/perfume_brand_identity.png" alt="고사성어를 모티브로 한 향수 공방 브랜드 아이덴티티 및 네이밍" class="work-card__image">
+                        </a>
+                    </div>
+                    <div class="work-card__info">
+                        <h2 class="work-card__title">고사성어를 모티브로 한 향수 공방 브랜드 아이덴티티 및 네이밍</h2>
+                    </div>
+                </article>
+
+                <!-- Project 3 (Square) -->
+                <article class="work-card work-card--square">
+                    <div class="work-card__image-wrapper">
+                        <a href="#modal-3">
+                            <img src="assets/typography_web_ui.png" alt="타이포그래피 중심의 미니멀 웹 UI 디자인" class="work-card__image">
+                        </a>
+                    </div>
+                    <div class="work-card__info">
+                        <h2 class="work-card__title">타이포그래피 중심의 미니멀 웹 UI 디자인</h2>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+        <!-- Modals -->
+        <div id="modal-1" class="modal">
+            <a href="#!" class="modal__overlay" aria-label="Close"></a>
+            <a href="#!" class="modal__close" aria-label="Close">&times;</a>
+            <img src="assets/app_ux_wireframe.png" alt="배달/쇼핑 앱 UX 개선 리서치 및 와이어프레임" class="modal__image">
+        </div>
+
+        <div id="modal-2" class="modal">
+            <a href="#!" class="modal__overlay" aria-label="Close"></a>
+            <a href="#!" class="modal__close" aria-label="Close">&times;</a>
+            <img src="assets/perfume_brand_identity.png" alt="고사성어를 모티브로 한 향수 공방 브랜드 아이덴티티 및 네이밍" class="modal__image">
+        </div>
+
+        <div id="modal-3" class="modal">
+            <a href="#!" class="modal__overlay" aria-label="Close"></a>
+            <a href="#!" class="modal__close" aria-label="Close">&times;</a>
+            <img src="assets/typography_web_ui.png" alt="타이포그래피 중심의 미니멀 웹 UI 디자인" class="modal__image">
+        </div>
+    </main>
+
+    <!-- Footer Block -->
+    <footer class="footer">
+        <a href="#contact" class="footer__title" style="display:block;">Let's Talk</a>
+        <div class="footer__bottom">
+            <p class="footer__copyright">2026. UI/UX Designer 반준오 (오즈코딩스쿨 10기)</p>
+        </div>
+    </footer>
+
+    <!-- About Modal -->
+    <div id="about" class="about-modal">
+        <a href="#!" class="about-modal__overlay" aria-label="Close"></a>
+        <div class="about-modal__content">
+            <a href="#!" class="about-modal__close" aria-label="Close">&times;</a>
+            
+            <!-- Top Section: Profile & Intro -->
+            <div class="about-modal__top">
+                <div class="about-modal__profile-box">
+                    <img src="assets/profile_avatar.png" alt="Profile Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="about-modal__intro">
+                    <h2 class="about-modal__name">반준오</h2>
+                    <h3 class="about-modal__role">UI/UX Designer</h3>
+                    <p class="about-modal__philosophy">
+                        디자인은 단순히 예쁘게 만드는 것이 아니라, 복잡한 문제를 해결하고 사용자의 삶을 더 나아지게 만드는 과정이라고 믿습니다.<br>
+                        데이터와 리서치를 기반으로 논리적인 뼈대를 잡고, 직관적이고 감각적인 UI로 사용자에게 즐거운 경험을 선사하는 것을 목표로 합니다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bottom Section: Skills & Experience -->
+            <div class="about-modal__bottom">
+                
+                <!-- Skills -->
+                <div class="about-modal__skills">
+                    <h4 class="about-modal__section-title">Skills</h4>
+                    <div class="about-modal__skill-list">
+                        <div class="about-modal__skill-item">
+                            <span class="about-modal__skill-name">UX Research</span>
+                            <div class="about-modal__skill-bar"><div class="about-modal__skill-progress" style="width: 90%;"></div></div>
+                        </div>
+                        <div class="about-modal__skill-item">
+                            <span class="about-modal__skill-name">UI Design</span>
+                            <div class="about-modal__skill-bar"><div class="about-modal__skill-progress" style="width: 95%;"></div></div>
+                        </div>
+                        <div class="about-modal__skill-item">
+                            <span class="about-modal__skill-name">Branding</span>
+                            <div class="about-modal__skill-bar"><div class="about-modal__skill-progress" style="width: 80%;"></div></div>
+                        </div>
+                        <div class="about-modal__skill-item">
+                            <span class="about-modal__skill-name">Prototyping</span>
+                            <div class="about-modal__skill-bar"><div class="about-modal__skill-progress" style="width: 85%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience & Education -->
+                <div class="about-modal__experience">
+                    <h4 class="about-modal__section-title">Experience & Education</h4>
+                    <div class="about-modal__timeline">
+                        <article class="about-modal__timeline-item">
+                            <div class="about-modal__timeline-year">2026</div>
+                            <div class="about-modal__timeline-info">
+                                <h5 class="about-modal__timeline-title">오즈코딩스쿨 프로덕트 디자인 과정 10기</h5>
+                                <p class="about-modal__timeline-desc">UI/UX 디자인 집중 부트캠프 수료. 실무 중심의 프로젝트 및 협업 경험.</p>
+                            </div>
+                        </article>
+                        <article class="about-modal__timeline-item">
+                            <div class="about-modal__timeline-year">2021 - 2025</div>
+                            <div class="about-modal__timeline-info">
+                                <h5 class="about-modal__timeline-title">시각디자인학과 졸업</h5>
+                                <p class="about-modal__timeline-desc">타이포그래피, 브랜딩, 인터랙션 디자인 등 시각디자인 전반의 이론 및 실습 과정 이수.</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contact" class="contact-modal">
+        <a href="#!" class="contact-modal__overlay" aria-label="Close"></a>
+        <div class="contact-modal__content">
+            <a href="#!" class="contact-modal__close" aria-label="Close">&times;</a>
+            
+            <!-- Left Side: Contact Info -->
+            <div class="contact-modal__left">
+                <h2 class="contact-modal__title">프로젝트 문의 및 협업 제안을 환영합니다</h2>
+                <p class="contact-modal__desc">어떤 아이디어든 편하게 말씀해 주세요.<br>빠른 시일 내에 답변 드리겠습니다.</p>
+                <div class="contact-modal__info-group">
+                    <span class="contact-modal__label">Email</span>
+                    <a href="mailto:hello@banjuno.design" class="contact-modal__link">hello@banjuno.design</a>
+                </div>
+                <div class="contact-modal__info-group">
+                    <span class="contact-modal__label">Phone</span>
+                    <a href="tel:01012345678" class="contact-modal__link">010-1234-5678</a>
+                </div>
+            </div>
+
+            <!-- Right Side: Contact Form -->
+            <div class="contact-modal__right">
+                <form class="contact-form">
+                    <div class="contact-form__group">
+                        <label for="subject" class="contact-form__label">제목</label>
+                        <input type="text" id="subject" class="contact-form__input" placeholder="문의하실 제목을 입력해 주세요" required>
+                    </div>
+                    <div class="contact-form__group">
+                        <label for="message" class="contact-form__label">의뢰 내용</label>
+                        <textarea id="message" class="contact-form__textarea" placeholder="프로젝트에 대한 자세한 내용을 남겨주세요" required></textarea>
+                    </div>
+                    <button type="submit" class="contact-form__submit">보내기</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
